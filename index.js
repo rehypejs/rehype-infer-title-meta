@@ -15,7 +15,7 @@ import {toText} from 'hast-util-to-text'
 /**
  * Plugin to infer file metadata from the main title of a document.
  *
- * @type {import('unified').Plugin<[Options?]|[], Root>}
+ * @type {import('unified').Plugin<[Options?]|Array<void>, Root>}
  */
 export default function rehypeInferTitleMeta(options = {}) {
   const {selector = 'h1'} = options
