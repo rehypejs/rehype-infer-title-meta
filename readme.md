@@ -8,36 +8,68 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**rehype**][rehype] plugin to infer file metadata from the main title of a
-document.
-This plugin sets `file.data.meta.title`.
-This is mostly useful with [`rehype-meta`][rehype-meta].
+**[rehype][]** plugin to infer the title of a document.
 
 ## Contents
 
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`unified().use(rehypeInferTitleMeta, options?)`](#unifieduserehypeinfertitlemeta-options)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
 *   [Security](#security)
 *   [Related](#related)
 *   [Contribute](#contribute)
 *   [License](#license)
 
+## What is this?
+
+This package is a [unified][] ([rehype][]) plugin to infer the title of a
+document.
+
+**unified** is a project that transforms content with abstract syntax trees
+(ASTs).
+**rehype** adds support for HTML to unified.
+**vfile** is the virtual file interface used in unified.
+**hast** is the HTML AST that rehype uses.
+This is a rehype plugin that inspects hast and adds metadata to vfiles.
+
+## When should I use this?
+
+This plugin is particularly useful in combination with
+[`rehype-meta`][rehype-meta].
+When both are used together, the `<title>` is populated with the document’s
+title.
+
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install rehype-infer-title-meta
 ```
 
+In Deno with [Skypack][]:
+
+```js
+import rehypeInferReadingTimeMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import rehypeInferReadingTimeMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?min'
+</script>
+```
+
 ## Use
 
-Say `example.js` looks as follows:
+Say our module `example.js` looks as follows:
 
 ```js
 import {unified} from 'unified'
@@ -67,7 +99,7 @@ async function main() {
 }
 ```
 
-Now, running `node example` yields:
+Now running `node example.js` yields:
 
 ```js
 {meta: {title: 'Hello, world!'}}
@@ -94,13 +126,33 @@ The default export is `rehypeInferTitleMeta`.
 
 ### `unified().use(rehypeInferTitleMeta, options?)`
 
-Plugin to infer file metadata of the document’s title.
+Infer the title from a document as file metadata.
+The result is stored on `file.data.meta.title`.
+
+##### `options`
+
+Configuration (optional).
 
 ##### `options.selector`
 
 CSS selector to the title (`string`, default: `'h1'`).
 Can be a selector list (`'title, h1, .main-heading'`), in which case the first
 element in the tree that matches is used.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+The extra type `Options` is exported.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
+This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
+`rehype` version 4+, and `unified` version 6+.
 
 ## Security
 
@@ -109,15 +161,15 @@ Use of `rehype-infer-title-meta` is safe.
 ## Related
 
 *   [`rehype-document`](https://github.com/rehypejs/rehype-document)
-    — Wrap a document around the syntax tree
+    — wrap a fragment in a document
 *   [`rehype-meta`](https://github.com/rehypejs/rehype-meta)
-    — Add metadata to the head of a document
+    — add metadata to the head of a document
 *   [`unified-infer-git-meta`](https://github.com/unifiedjs/unified-infer-git-meta)
-    — Infer file metadata from Git
+    — infer file metadata from Git
 *   [`rehype-infer-description-meta`](https://github.com/rehypejs/rehype-infer-description-meta)
-    — Infer file metadata from the description of a document
+    — infer file metadata from the description of a document
 *   [`rehype-infer-reading-time-meta`](https://github.com/rehypejs/rehype-infer-reading-time-meta)
-    — Infer file metadata from the reading time of a document
+    — infer file metadata from the reading time of a document
 
 ## Contribute
 
@@ -163,17 +215,23 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [health]: https://github.com/rehypejs/.github
 
-[contributing]: https://github.com/rehypejs/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/rehypejs/.github/blob/main/contributing.md
 
-[support]: https://github.com/rehypejs/.github/blob/HEAD/support.md
+[support]: https://github.com/rehypejs/.github/blob/main/support.md
 
-[coc]: https://github.com/rehypejs/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/rehypejs/.github/blob/main/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
+
+[typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified
 
 [rehype]: https://github.com/rehypejs/rehype
 
