@@ -56,14 +56,14 @@ npm install rehype-infer-title-meta
 In Deno with [Skypack][]:
 
 ```js
-import rehypeInferReadingTimeMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?dts'
+import rehypeInferTitleMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?dts'
 ```
 
 In browsers with [Skypack][]:
 
 ```html
 <script type="module">
-  import rehypeInferReadingTimeMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?min'
+  import rehypeInferTitleMeta from 'https://cdn.skypack.dev/rehype-infer-title-meta@1?min'
 </script>
 ```
 
