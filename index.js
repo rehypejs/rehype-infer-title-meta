@@ -1,4 +1,6 @@
 /**
+ * @typedef {import('./complex-types.js')} DoNotTouchThisAsItIncludesAugmentation
+ *
  * @typedef {import('hast').Root} Root
  *
  * @typedef Options
@@ -26,9 +28,7 @@ export default function rehypeInferTitleMeta(options = {}) {
     const matter = /** @type {Record<string, unknown>} */ (
       file.data.matter || {}
     )
-    const meta = /** @type {Record<string, unknown>} */ (
-      file.data.meta || (file.data.meta = {})
-    )
+    const meta = file.data.meta || (file.data.meta = {})
 
     if (node && !matter.title && !meta.title) {
       meta.title = toText(node)

@@ -47,7 +47,7 @@ title.
 ## Install
 
 This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install rehype-infer-title-meta
@@ -81,25 +81,21 @@ import rehypeMeta from 'rehype-meta'
 import rehypeFormat from 'rehype-format'
 import rehypeStringify from 'rehype-stringify'
 
-main()
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeDocument)
+  .use(rehypeInferTitleMeta)
+  .use(rehypeMeta)
+  .use(rehypeFormat)
+  .use(rehypeStringify)
+  .process('# Hello, world!')
 
-async function main() {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeDocument)
-    .use(rehypeInferTitleMeta)
-    .use(rehypeMeta)
-    .use(rehypeFormat)
-    .use(rehypeStringify)
-    .process('# Hello, world!')
-
-  console.log(file.data)
-  console.log(String(file))
-}
+console.log(file.data)
+console.log(String(file))
 ```
 
-Now running `node example.js` yields:
+…now running `node example.js` yields:
 
 ```js
 {meta: {title: 'Hello, world!'}}
@@ -142,13 +138,29 @@ element in the tree that matches is used.
 ## Types
 
 This package is fully typed with [TypeScript][].
-The extra type `Options` is exported.
+The additional type `Options` is exported.
+
+It also registers the `file.data.meta` field with `vfile`.
+If you’re working with the file, make sure to import this plugin somewhere in
+your types, as that registers the new field on the file.
+
+```js
+/**
+ * @typedef {import('rehype-infer-title-meta')}
+ */
+
+import {VFile} from 'vfile'
+
+const file = new VFile()
+
+console.log(file.data.meta.title) //=> TS now knows that this is a `string?`.
+```
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
